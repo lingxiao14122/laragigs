@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ListingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Listing;
@@ -29,15 +30,7 @@ use App\Models\Listing;
 //     return $request->name . $request->city;
 // });
 
-Route::get('/', function () {
-    return view('listings', [
-        'listings' => Listing::all()
-    ]);
-});
+Route::get('/', [ListingController::class, 'index']);
 
-// here utilizing route-model binding
-Route::get('/listing/{listing}', function(Listing $listing) {
-    return view('listing', [
-        'listing' => $listing,
-    ]);
-});
+// using route-model binding in controller
+Route::get('/listing/{listing}', [ListingController::class, 'show']);
