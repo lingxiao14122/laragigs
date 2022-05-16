@@ -35,8 +35,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/listing/{id}', function($id) {
+// here utilizing route-model binding
+Route::get('/listing/{listing}', function(Listing $listing) {
     return view('listing', [
-        'listing' => Listing::find($id)
+        'listing' => $listing,
     ]);
 });
