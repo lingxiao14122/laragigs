@@ -1,34 +1,16 @@
-@extends('layout')
-
-@section('content')
-
+<x-layout>
     @include('partials._hero')
-
     @include('partials._search')
 
     @unless(count($listings) == 0)
         <div class="lg:grid lg:grid-cols-2 gap-4 space-y-4 md:space-y-0 mx-4">
 
             @foreach ($listings as $listing)
-                <x-card>
-                    <img class="hidden w-48 mr-6 md:block" src="{{ asset('images/no-image.png') }}" alt="" />
-                    <div>
-                        <h3 class="text-2xl">
-                            <a href="/listing/{{ $listing->id }}">{{ $listing->title }}</a>
-                        </h3>
-                        <div class="text-xl font-bold mb-4">{{ $listing->company }}</div>
-                        <x-listing-tags :tagsCommaSeperated="$listing->tags"/>
-                        <div class="text-lg mt-4">
-                            <i class="fa-solid fa-location-dot"></i>
-                            {{ $listing->location }}
-                        </div>
-                    </div>
-                </x-card>
+                <x-listing-card :listing="$listing" />
             @endforeach
 
         </div>
     @else
         <p>No listing found</p>
     @endunless
-
-@endsection
+</x-layout>
