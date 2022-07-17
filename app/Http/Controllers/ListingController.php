@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 class ListingController extends Controller
 {
     public function index() {
+        // dd(request('tag'));
+        $urlParamTag = request(['tag']);
         return view('listing.index', [
-            'listings' => Listing::all()
+            'listings' => Listing::latest()->filter($urlParamTag)->get()
         ]);
     }
 
