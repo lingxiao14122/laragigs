@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             'website' => 'https://www.starkindustries.com',
         ]);
 
-        Listing::factory(6)->create();
+        Listing::factory(10)->create();
         
     }
 }
