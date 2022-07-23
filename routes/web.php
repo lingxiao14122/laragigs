@@ -35,7 +35,8 @@ Route::get('/', [ListingController::class, 'index']);
 // using route-model binding in controller
 Route::get('/listing/{listing}', [ListingController::class, 'show']);
 
-//show creat form
 Route::get('/listings/create', [ListingController::class, 'create']);
-
 Route::post('/listings', [ListingController::class, 'store']);
+
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
+Route::put('/listings/{listing}', [ListingController::class, 'update']);
