@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Listing;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,13 +32,33 @@ use App\Models\Listing;
 //     return $request->name . $request->city;
 // });
 
-Route::get('/', [ListingController::class, 'index']);
+/**
+ * Listing
+ */
 
-// using route-model binding in controller
-Route::get('/listing/{listing}', [ListingController::class, 'show']);
-
+//create
 Route::get('/listings/create', [ListingController::class, 'create']);
 Route::post('/listings', [ListingController::class, 'store']);
 
+//read
+Route::get('/', [ListingController::class, 'index']);
+Route::get('/listing/{listing}', [ListingController::class, 'show']);
+
+//update
 Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
 Route::put('/listings/{listing}', [ListingController::class, 'update']);
+
+//delete
+Route::delete('/listings/{listing}', [ListingController::class, 'delete']);
+
+/**
+ * User
+ */
+
+//create
+Route::get('/register', [UserController::class, 'create']);
+Route::post('/users', [UserController::class, 'store']);
+
+Route::get('/login', [UserController::class, 'create']);
+Route::get('/users', [UserController::class, 'create']);
+
