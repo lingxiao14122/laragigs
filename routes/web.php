@@ -32,33 +32,34 @@ use App\Models\User;
 //     return $request->name . $request->city;
 // });
 
-/**
- * Listing
- */
-
-//create
-Route::get('/listings/create', [ListingController::class, 'create']);
-Route::post('/listings', [ListingController::class, 'store']);
-
-//read
+//public
 Route::get('/', [ListingController::class, 'index']);
 Route::get('/listing/{listing}', [ListingController::class, 'show']);
 
-//update
-Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
-Route::put('/listings/{listing}', [ListingController::class, 'update']);
+Route::group(['middleware' => ['guest']], function () {
+    //create
+    Route::get('/register', [UserController::class, 'create']);
+    Route::post('/users', [UserController::class, 'store']);
+    
+    //login
+    Route::get('/login', [UserController::class, 'login'])->name('login');
+    Route::post('/users/login', [UserController::class, 'authenticate']);
+    
+});
 
-//delete
-Route::delete('/listings/{listing}', [ListingController::class, 'delete']);
+Route::group(['middleware' => ['auth']], function () {
+    //create
+    Route::get('/listings/create', [ListingController::class, 'create']);
+    Route::post('/listings', [ListingController::class, 'store']);
+    
+    //update
+    Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
+    Route::put('/listings/{listing}', [ListingController::class, 'update']);
+    Route::get('/listings/manage', [ListingController::class, 'manage']);
 
-/**
- * User
- */
-
-//create
-Route::get('/register', [UserController::class, 'create']);
-Route::post('/users', [UserController::class, 'store']);
-
-Route::get('/login', [UserController::class, 'create']);
-Route::get('/users', [UserController::class, 'create']);
-
+    
+    //delete
+    Route::delete('/listings/{listing}', [ListingController::class, 'delete']);
+    
+    Route::post('/logout', [UserController::class, 'logout']);
+});
